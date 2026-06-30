@@ -20,11 +20,13 @@ const globalStyles = `
   /* Mobile hamburger */
   .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
   .hamburger span { display: block; width: 22px; height: 2px; background: #e5e2e1; border-radius: 2px; transition: all 0.3s; }
-  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-links-desktop { display: flex; gap: 28px; align-items: center; }
+  .nav-links-mobile { display: none; }
 
   @media (max-width: 768px) {
     .hamburger { display: flex; }
-    .nav-links {
+    .nav-links-desktop { display: none; }
+    .nav-links-mobile {
       display: none;
       position: fixed;
       top: 76px; left: 0; right: 0;
@@ -35,8 +37,8 @@ const globalStyles = `
       border-bottom: 1px solid rgba(255,255,255,0.06);
       z-index: 49;
     }
-    .nav-links.open { display: flex; }
-    .nav-links a {
+    .nav-links-mobile.open { display: flex; }
+    .nav-links-mobile a {
       padding: 18px 24px !important;
       border-bottom: 1px solid rgba(255,255,255,0.04);
       width: 100%;
@@ -182,7 +184,7 @@ function Nav() {
           <div style={{fontFamily:"Sora,sans-serif",fontSize:18,fontWeight:700,letterSpacing:"-0.02em"}}>ROHITH<span style={{color:"#b7c4ff"}}>.</span></div>
 
           {/* Desktop links */}
-          <div className="nav-links">
+          <div className="nav-links-desktop">
             {[["#about","About"],["#work","Projects"],["#skills","Skills"],["#contact","Contact"]].map(([href,label])=>(
               <a key={href} href={href} onClick={closeMenu} style={{fontFamily:"monospace",fontSize:11,textTransform:"uppercase",letterSpacing:"0.12em",textDecoration:"none",color:"rgba(255,255,255,0.5)",transition:"color 0.2s"}}
                 onMouseEnter={e=>e.target.style.color="#b7c4ff"} onMouseLeave={e=>e.target.style.color="rgba(255,255,255,0.5)"}>{label}</a>
@@ -204,7 +206,7 @@ function Nav() {
         </div>
 
         {/* Mobile menu */}
-        <div className={`nav-links${menuOpen?" open":""}`}>
+        <div className={`nav-links-mobile${menuOpen?" open":""}`}>
           {[["#about","About"],["#work","Projects"],["#skills","Skills"],["#contact","Contact"]].map(([href,label])=>(
             <a key={href} href={href} onClick={closeMenu} style={{fontFamily:"monospace",fontSize:13,textTransform:"uppercase",letterSpacing:"0.12em",textDecoration:"none",color:"rgba(255,255,255,0.7)",display:"block",padding:"18px 24px",borderBottom:"1px solid rgba(255,255,255,0.04)"}}>
               {label}
